@@ -17,13 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    smartrooms.cpp
 
 HEADERS += \
-    mainwindow.h
+    smartrooms.h
 
 FORMS += \
-    mainwindow.ui
+    smartrooms.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

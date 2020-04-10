@@ -1,26 +1,11 @@
-#include <string>
-#include <vector>
-#include <iostream>
-
-using namespace std;
+#include "smartrooms.h"
+#include <QApplication>
 
 
-class Area{
-
-    public:
-        explicit Area(string, int);
-    
-    private:
-        string area_name;
-        vector<int> authorized_ids;
-        
-};
-
-Area::Area(string name, vector<int> ids){
-    
-    area_name = name;
-    authorized_ids = ids;
-
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    SmartRooms w;
+    w.show();
+    return a.exec();
 }
-
-
