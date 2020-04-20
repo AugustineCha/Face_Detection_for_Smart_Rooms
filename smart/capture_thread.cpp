@@ -85,7 +85,7 @@ void CaptureThread::calculateFPS(cv::VideoCapture &cap)
 {
     const int count_to_read = 100;
     cv::Mat tmp_frame;
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
     for(int i = 0; i < count_to_read; i++) {
             cap >> tmp_frame;
