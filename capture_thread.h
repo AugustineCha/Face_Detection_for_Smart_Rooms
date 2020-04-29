@@ -11,32 +11,8 @@
 #include "opencv2/video/background_segm.hpp"
 #include "opencv2/objdetect.hpp"
 #include "opencv2/face/facemark.hpp"
-#include <iostream>
-#include <string>
-#include <vector>
-#include <stdlib.h>
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/dnn.hpp>
-#include <cstdlib>
-#include <fstream>
-#include <algorithm>
-#include <opencv2/opencv.hpp>
-#include <opencv2/objdetect.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
-#include <opencv2/calib3d.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/core/utility.hpp>
-#include <opencv2/core/ocl.hpp>
 
-using namespace cv;
 using namespace std;
-
 
 class CaptureThread : public QThread
 {
@@ -60,9 +36,6 @@ public:
         motion_detected = false;
         if(video_saving_status != STOPPED) video_saving_status = STOPPING;
     };
-    void findKeyPointsHomography(vector<KeyPoint>& kpts1, vector<KeyPoint>& kpts2,
-                                 vector<DMatch>& matches, vector<char>& match_mask);
-
 
 protected:
     void run() override;
@@ -78,8 +51,6 @@ private:
     void stopSavingVideo();
     void motionDetect(cv::Mat &frame);
     void detectFaces(cv::Mat &frame);
-    void detect_and_compute(string type, Mat& img, vector<KeyPoint>& kpts, Mat& desc);
-    void match(string type, Mat& desc1, Mat& desc2, vector<DMatch>& matches);
 
 private:
     bool running;
