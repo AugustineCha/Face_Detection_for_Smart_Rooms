@@ -20,6 +20,7 @@ SOURCES += \
     smartrooms.cpp
 
 HEADERS += \
+    global.h \
     smartrooms.h
 
 FORMS += \

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class SmartRooms; }
 QT_END_NAMESPACE
@@ -28,7 +29,13 @@ private slots:
 
     void on_homeButton_3_clicked();
 
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::SmartRooms *ui;
 };
 #endif // SMARTROOMS_H
+
+
