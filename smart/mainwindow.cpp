@@ -37,22 +37,12 @@ void MainWindow::initUI()
     // main area
     QGridLayout *main_layout = new QGridLayout();
 
-#ifdef GAZER_USE_QT_CAMERA
-    QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
-    // I have two cemaras and use the second one here
-    camera = new QCamera(cameras[1]);
-    viewfinder = new QCameraViewfinder(this);
-    QCameraViewfinderSettings settings;
-    // the size must be compatible with the camera
-    settings.setResolution(QSize(800, 600));
-    camera->setViewfinder(viewfinder);
-    camera->setViewfinderSettings(settings);
-    main_layout->addWidget(viewfinder, 0, 0, 12, 1);
-#else
+
+
     imageScene = new QGraphicsScene(this);
     imageView = new QGraphicsView(imageScene);
     main_layout->addWidget(imageView, 0, 0, 12, 1);
-#endif
+
 
     // tools
     QGridLayout *tools_layout = new QGridLayout();
@@ -125,13 +115,7 @@ void MainWindow::showCameraInfo()
 }
 
 
-#ifdef GAZER_USE_QT_CAMERA
-void MainWindow::openCamera()
-{
-    camera->setCaptureMode(QCamera::CaptureVideo);
-    camera->start();
-}
-#else
+
 void MainWindow::openCamera()
 {
     if(capturer != nullptr) {
@@ -155,7 +139,7 @@ void MainWindow::openCamera()
     recordButton->setText("Capture");
     recordButton->setEnabled(true);
 }
-#endif
+
 
 void MainWindow::calculateFPS()
 {
