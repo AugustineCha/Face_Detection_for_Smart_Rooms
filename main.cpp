@@ -55,10 +55,8 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
         int counter2 = 0;
 
         while(getline(dataar_istream, line, ',')){
-            cout << "line" << " "<< line << endl;
 
             if(line=="#"){
-                cout << "Enters line ended"<< endl;
                 area_map[area_name] = authorized;
                 authorized.clear();
                 counter2 = 0;
@@ -73,10 +71,6 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
                 area_name = line;
             }
 
-        }
-        cout << "Hi"<< endl;
-        for (const auto& x: area_map){
-            cout << x.first << "ok"<<endl;
         }
 
 
