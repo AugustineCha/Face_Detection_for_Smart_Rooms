@@ -34,12 +34,6 @@ SmartRooms::SmartRooms(QWidget *parent)
     ui->homeButton_2->setIcon(style.standardIcon(QStyle::SP_ArrowBack));
     ui->homeButton_3->setIcon(style.standardIcon(QStyle::SP_ArrowBack));
 
-    for (const auto& kv: area_map){
-        cout << "Hello"<< endl;
-        cout << kv.first << "this" << endl;
-        QString name = QString::fromStdString(kv.first);
-        ui -> comboBox -> addItem(name);
-    }
 }
 
 SmartRooms::~SmartRooms()
@@ -55,6 +49,11 @@ void SmartRooms::on_pushButton_clicked()
 void SmartRooms::on_pushButton_2_clicked()
 {
     ui -> stackedWidget -> setCurrentIndex(2);
+    ui -> comboBox -> clear();
+    for (const auto& kv: area_map){
+        QString name = QString::fromStdString(kv.first);
+        ui -> comboBox -> addItem(name);
+    }
 }
 
 void SmartRooms::on_pushButton_3_clicked()
@@ -86,11 +85,14 @@ void SmartRooms::on_pushButton_5_clicked()
     QString firstname_q = ui -> lineEditRoom_3 -> text();
     QString lastname_q = ui -> lineEditRoom_4 -> text();
     QString id_q = ui -> lineEditRoom_5 -> text();
+    QString img_name_q = ui -> lineEditRoom_6 -> text();
 
     //Converting user input from QString to std::string or int
     string firstname = firstname_q.toStdString();
     string lastname = lastname_q.toStdString();
+    string img_name = img_name_q.toStdString();
     int id = stoi(id_q.toStdString());
+
 
     //Check if key already exists
     if (person_ids.find(id) != person_ids.end()){
@@ -101,6 +103,9 @@ void SmartRooms::on_pushButton_5_clicked()
 
     }
     else{
+
+        //Create image path
+        string img_path = "pathtoworkingdirectory" + img_name;
 
         //Save input both temporarily and permanently
         vector<string> names = {firstname, lastname};
@@ -117,7 +122,7 @@ void SmartRooms::on_pushButton_5_clicked()
         else{
 
             person_ids[id] = names;
-            data_ostream << firstname << "," << lastname << "," << id << endl;
+            data_ostream << firstname << "," << lastname << "," << id << "," << img_path << endl;
 
             }
         data_ostream.close();
@@ -179,13 +184,34 @@ void SmartRooms::on_pushButton_4_clicked()
         for(auto x: authorized_ids){
             dataar_ostream << x << ",";
         }
-        dataar_ostream << "\n";
+        dataar_ostream << "#";
 
     }
 
     //Clear fields
     ui -> lineEditRoom -> clear();
     ui -> lineEditRoom_2 -> clear();
+
+}
+
+
+void SmartRooms::on_pushButton_6_clicked()
+{
+    QString accessed_area_q = ui -> comboBox -> currentText();
+    string accessed_area = accessed_area_q.toStdString();
+    vector<int> authorized_ids = area_map[accessed_area]; //RAII
+
+
+
+    //Open webcam and take picture
+
+    //Call all ids authorized to enter specific room
+
+    //Compare with DB (use hashmap for each authorized id and check if swift accepts it)
+
+    // Set a boolean, either access or denial
+
+
 
 
 

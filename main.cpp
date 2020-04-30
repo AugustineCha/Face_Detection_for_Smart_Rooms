@@ -6,14 +6,16 @@
 #include <string>
 #include <vector>
 #include <global.h>
+#include <typeinfo>
 
 using namespace std;
 
 unordered_map<int, vector<string>>person_ids;
 unordered_map<string, vector<int>> area_map;
+unordered_map<int, string> img_map;
 
 
-bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<string, vector<int>>& area_map){
+bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<string, vector<int>>& area_map, unordered_map<int, string>& img_map){
 
     //Read in both saved person information as well as defined areas
     fstream dataid_istream, dataar_istream;
@@ -32,13 +34,18 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
 
         std::string line;
         vector<string> names;
+        int id_read;
         int counter = 0;
         while(getline(dataid_istream, line, ',')){
             counter +=1;
             names.push_back(line);
             if (counter == 3){
-                person_ids[stoi(line)] = names;
+                id_read = stoi(line);
+                person_ids[id_read] = names;
                 names.clear();
+            }
+            if (counter == 4){
+                img_map[id_read] = line;
             }
         }
 
@@ -48,10 +55,13 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
         int counter2 = 0;
 
         while(getline(dataar_istream, line, ',')){
+            cout << "line" << " "<< line << endl;
 
-            if(line=="\n"){
+            if(line=="#"){
+                cout << "Enters line ended"<< endl;
                 area_map[area_name] = authorized;
                 authorized.clear();
+                counter2 = 0;
                 continue;
             }
 
@@ -63,6 +73,10 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
                 area_name = line;
             }
 
+        }
+        cout << "Hi"<< endl;
+        for (const auto& x: area_map){
+            cout << x.first << "ok"<<endl;
         }
 
 
@@ -79,10 +93,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     SmartRooms w;
     w.show();
-    person_ids[3] = {"empty", "empty"};
-    area_map["Garage"] = {1, 2, 3};
 
-    if(startup(person_ids, area_map)){
+    if(startup(person_ids, area_map, img_map)){
         return a.exec();
     }
     else{

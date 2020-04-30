@@ -483,6 +483,25 @@ QPushButton:hover:!pressed
         </widget>
        </item>
        <item>
+        <widget class="QLineEdit" name="lineEditRoom_6">
+         <property name="font">
+          <font>
+           <family>FreeMono</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid white;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>IMG Name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_5">
          <property name="font">
           <font>
