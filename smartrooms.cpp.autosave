@@ -444,14 +444,14 @@ void SmartRooms::on_pushButton_6_clicked()
                 break;
         }
         if(!identified){
-            cout << "Not authorized person" << endl;
+            cout << "Not authorized person" << endl; // Closed
             break;
         }
         cout<< "open camera" << endl;
         cv::imshow("result", res);
         int k = waitKey(5);
         if(identified){
-            cout << "identified" << endl;
+            cout << "identified" << endl; // UI friendly notification
             int k = waitKey(1500);
             destroyAllWindows();
             break;
