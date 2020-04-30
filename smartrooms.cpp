@@ -279,7 +279,7 @@ void SmartRooms::on_pushButton_5_clicked()
     else{
 
         //Create image path
-        string img_path = "pathtoworkingdirectory" + img_name;
+        string img_path = "/home/rahimai/Documents/" + img_name; //AUGUSTINEEEEEEEEEEEEEE: Please update this to your final directory!
 
         //Save input both temporarily and permanently
         vector<string> names = {firstname, lastname};
@@ -307,6 +307,7 @@ void SmartRooms::on_pushButton_5_clicked()
     ui -> lineEditRoom_3 -> clear();
     ui -> lineEditRoom_4 -> clear();
     ui -> lineEditRoom_5 -> clear();
+    ui -> lineEditRoom_6 -> clear();
 
 }
 
@@ -358,7 +359,7 @@ void SmartRooms::on_pushButton_4_clicked()
         for(auto x: authorized_ids){
             dataar_ostream << x << ",";
         }
-        dataar_ostream << "#";
+        dataar_ostream << "#" << ",";
 
     }
 
