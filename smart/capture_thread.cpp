@@ -221,7 +221,8 @@ void CaptureThread::detectFaces(cv::Mat &frame)
                 cv::rectangle(frame, faces[i], color, 1);
                 Mat ROI(frame, faces[i]);
                 ROI.copyTo(cropped_img);
-                const string img_file1 = "/Users/zyy/Downloads/jin.png";
+//                const string img_file1 = "/Users/zyy/Downloads/jin.png";
+                const string img_file1 = "/Users/augustinecha/Downloads/image.jpg";
                 Mat img1 = cv::imread(img_file1, 1);
                 vector<KeyPoint> kpts1;
                 vector<KeyPoint> kpts2;

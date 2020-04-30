@@ -9,10 +9,11 @@ QT_CONFIG -= no-pkg-config
 
 CONFIG  += link_pkgconfig
 
-PKGCONFIG += opencv
+#PKGCONFIG += opencv
+PKGCONFIG += opencv4
 
-LIBS += -L/usr/local/Cellar/opencv/3.4.2/lib/
-
+#LIBS += -L/usr/local/Cellar/opencv/3.4.2/lib/
+LIBS += -L/usr/local/Cellar/opencv/4.2.0_4/lib/ #Augustine's
 
 # Input
 HEADERS += mainwindow.h capture_thread.h \
@@ -24,5 +25,5 @@ SOURCES += main.cpp mainwindow.cpp capture_thread.cpp \
 # DEFINES += GAZER_USE_QT_CAMERA=1
 # QT += multimediawidgets
 # DEFINES += OPENCV_DATA_DIR=\\\"/usr/share/opencv/\\\"
-DEFINES += OPENCV_DATA_DIR=\\\"/usr/local/Cellar/opencv/3.4.2/share/OpenCV/\\\"
-
+#DEFINES += OPENCV_DATA_DIR=\\\"/usr/local/Cellar/opencv/3.4.2/share/OpenCV/\\\"
+DEFINES += OPENCV_DATA_DIR=\\\"/usr/local/Cellar/opencv/4.2.0_4/share/opencv4/\\\" #Augustine's
