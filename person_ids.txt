@@ -1,0 +1,2 @@
+Augustine,Cha,1,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image.jpg
+Someone,Idontknow,2,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image2.png

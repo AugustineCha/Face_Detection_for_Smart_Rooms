@@ -19,8 +19,8 @@ bool startup(unordered_map<int, vector<string>>& person_ids, unordered_map<strin
 
     //Read in both saved person information as well as defined areas
     fstream dataid_istream, dataar_istream;
-    dataid_istream.open("person_ids.txt", std::ios::in | std::ios::app);
-    dataar_istream.open("areas.txt", std::ios::in | std::ios::app);
+    dataid_istream.open("/Users/augustinecha/Face_Detection_for_Smart_Rooms/person_ids.txt", std::ios::in | std::ios::app);
+    dataar_istream.open("/Users/augustinecha/Face_Detection_for_Smart_Rooms/areas.txt", std::ios::in | std::ios::app);
 
     if (!dataid_istream.good() && !dataar_istream.good()){
 

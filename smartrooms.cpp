@@ -43,8 +43,8 @@ using namespace std;
 using namespace cv::dnn;
 using namespace std;
 
-const double th = 0.05;
-const double kDistanceCoef = 2.0;
+const double th = 0.35;
+const double kDistanceCoef = 1.5;
 const int kMaxMatchingSize = 1000;
 const string desc_type = "sift";
 const string match_type = "bf";
@@ -117,6 +117,7 @@ bool match(string type, Mat& desc1, Mat& desc2, vector<DMatch>& matches) {
         matches.pop_back();
     }
     float rate = (sz - cnt) / sz;
+    cout << "inlier ratio: " << rate << endl;
     if(rate > th)
 //        cout << "identified" << endl;
         return true;
@@ -279,13 +280,16 @@ void SmartRooms::on_pushButton_5_clicked()
     else{
 
         //Create image path
-        string img_path = "/home/rahimai/Documents/" + img_name; //AUGUSTINEEEEEEEEEEEEEE: Please update this to your final directory!
+//        string img_path = "/home/rahimai/Documents/" + img_name; //AUGUSTINEEEEEEEEEEEEEE: Please update this to your final directory!
+        string img_path = "/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/" + img_name; //AUGUSTINEEEEEEEEEEEEEE: Please update this to your final directory!
+//        string img_path = "/Users/augustinecha/local/opencv_test/opencv_test/models/" + img_name; //AUGUSTINEEEEEEEEEEEEEE: Please update this to your final directory!
+        cout << img_path << endl;
 
         //Save input both temporarily and permanently
         vector<string> names = {firstname, lastname};
 
         fstream data_ostream;
-        data_ostream.open("person_ids.txt", std::ios::app);
+        data_ostream.open("/Users/augustinecha/Face_Detection_for_Smart_Rooms/person_ids.txt", std::ios::app);
 
         if (!data_ostream.good()){
 
@@ -297,7 +301,7 @@ void SmartRooms::on_pushButton_5_clicked()
 
             person_ids[id] = names;
             data_ostream << firstname << "," << lastname << "," << id << "," << img_path << endl;
-
+            img_map[id] = img_path;
             }
         data_ostream.close();
 
@@ -343,7 +347,7 @@ void SmartRooms::on_pushButton_4_clicked()
 
     //Save input both temporarily and permanently
     fstream dataar_ostream;
-    dataar_ostream.open("areas.txt", std::ios::app);
+    dataar_ostream.open("/Users/augustinecha/Face_Detection_for_Smart_Rooms/areas.txt", std::ios::app);
 
     if (!dataar_ostream.good()){
 
@@ -391,12 +395,19 @@ void SmartRooms::on_pushButton_6_clicked()
     double tt_opencvDNN = 0;
     double fpsOpencvDNN = 0;
 
-    Mat img1 = cv::imread(img_file1, 1);
-    Mat img2 = cv::imread(img_file2, 1);
-    // Multiple images
+    cout << "authorized_ids" << endl;
     vector<Mat> images;
-    images.push_back(img1);
-    images.push_back(img2);
+    for(int i : authorized_ids){
+        cout << i << endl;
+        string path = img_map[i];
+        cout << path << endl;
+        images.push_back(cv::imread(path, 1));
+    }
+//    Mat img1 = cv::imread(img_file1, 1);
+//    Mat img2 = cv::imread(img_file2, 1);
+//    // Multiple images
+//    images.push_back(img1);
+//    images.push_back(img2);
     while(1)
     {
         source >> frame;
@@ -430,8 +441,11 @@ void SmartRooms::on_pushButton_6_clicked()
 //                        Scalar::all(-1), match_mask, DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
         Mat res;
+        int id;
         bool identified = false;
         for(int i=0; i<images.size(); ++i){
+            if(images[i].empty())
+                break;
             detect_and_compute(desc_type, images[i], kpts2, desc2);
 
             identified = match(match_type, desc1, desc2, matches);
@@ -439,22 +453,32 @@ void SmartRooms::on_pushButton_6_clicked()
             vector<char> match_mask(matches.size(), 1);
             findKeyPointsHomography(kpts1, kpts2, matches, match_mask);
 
-            cv::drawMatches(in, kpts1, img1, kpts2, matches, res, Scalar::all(-1),
+            cv::drawMatches(in, kpts1, images[i], kpts2, matches, res, Scalar::all(-1),
                             Scalar::all(-1), match_mask, DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-            if (identified)
+            if (identified){
+                id = authorized_ids[i];
                 break;
+            }
         }
+
         if(!identified){
             cout << "Not authorized person" << endl;
+            QMessageBox messageBox;
+            messageBox.information(0,"Notification","Sorry, Yout not allowed");
+            messageBox.setFixedSize(500,200);
             break;
         }
         cout<< "open camera" << endl;
         cv::imshow("result", res);
-        int k = waitKey(5);
+        waitKey(5);
         if(identified){
             cout << "identified" << endl;
-            int k = waitKey(1500);
+            waitKey(1500);
             destroyAllWindows();
+            QMessageBox messageBox;
+            QString message_q = QString::fromStdString("Welcome, "+person_ids[id][0]);
+            messageBox.information(0,"Notification", message_q);
+            messageBox.setFixedSize(500,200);
             break;
         }
 
