@@ -44,7 +44,7 @@ using namespace cv::dnn;
 using namespace std;
 
 const double th = 0.35;
-const double kDistanceCoef = 1.5;
+const double kDistanceCoef = 1.35;
 const int kMaxMatchingSize = 1000;
 const string desc_type = "sift";
 const string match_type = "bf";
@@ -181,7 +181,7 @@ Mat detectFaceOpenCVDNN(Net net, Mat &frameOpenCVDNN){
         int y2 = static_cast<int>(detectionMat.at<float>(i, 6) * frameHeight);
 
         cv::rectangle(frameOpenCVDNN, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(0, 255, 0),2, 4);
-        Mat ROI(frameOpenCVDNN, Rect(x1,y1,x2-x1, y2-y1));
+        Mat ROI(frameOpenCVDNN, Rect(x1,y1, x2-x1, y2-y1));
         ROI.copyTo(cropped_img);
     }
     //    }
@@ -464,7 +464,7 @@ void SmartRooms::on_pushButton_6_clicked()
         if(!identified){
             cout << "Not authorized person" << endl;
             QMessageBox messageBox;
-            messageBox.information(0,"Notification","Sorry, Yout not allowed");
+            messageBox.information(0,"Notification","Sorry, You are not allowed");
             messageBox.setFixedSize(500,200);
             break;
         }

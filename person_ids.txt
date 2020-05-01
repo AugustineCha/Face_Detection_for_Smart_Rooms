@@ -1,2 +1,6 @@
 Augustine,Cha,1,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image.jpg
 Someone,Idontknow,2,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image2.png
+aaa,bbb,123,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image.jpg
+ccc,ddd,222,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image2.png
+aaa,aaa,1,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image.jpg
+bbb,bbb,2,/Users/augustinecha/Face_Detection_for_Smart_Rooms/database/image2.png
